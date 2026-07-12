@@ -1,0 +1,66 @@
+{% extends 'books/base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<header class="dashboard-header">
+    <span class="bm-eyebrow">Overview</span>
+    <h1>Dashboard</h1>
+    <p class="dashboard-subtitle">A snapshot of your reading life.</p>
+</header>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <span class="stat-number">{{ total_books }}</span>
+        <span class="stat-label">Total Books</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ reading }}</span>
+        <span class="stat-label">Currently Reading</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ completed }}</span>
+        <span class="stat-label">Completed</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ to_read }}</span>
+        <span class="stat-label">To Read</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ total_notes }}</span>
+        <span class="stat-label">Notes</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ total_quotes }}</span>
+        <span class="stat-label">Quotes</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ favorite_books }}</span>
+        <span class="stat-label">Favorite Books</span>
+    </div>
+
+    <div class="stat-card">
+        <h2>{{ pages_read}} / {{ total_pages }}</h2>
+        <span class="stat-card">Pages Read</span>
+    </div>
+
+    <div class="stat-card">
+        <h2>{{ reading_percentage }}%</h2>
+        <span class="stat-card">Library Progress</span>
+    </div>
+
+</div>
+
+<div class="dashboard-footer">
+    <a href="{% url 'book_list' %}" class="bm-btn-sm">View All Books</a>
+    <a href="{% url 'create_book' %}" class="bm-btn">+ Add Book</a>
+</div>
+
+{% endblock %}

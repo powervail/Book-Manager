@@ -1,0 +1,56 @@
+{% extends "books/base.html" %}
+{% load static %}
+
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+
+<header class="list-header">
+    
+    <div class="list-header-text">
+        <span class="bm-eyebrow">Your Collection</span>
+        <h1>My Books</h1>
+    </div>
+
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search by title or author..." value="{{ request.GET.q }}">
+        <select name="status" id="">
+            <option value="">All Status</option>
+            <option value="RD" {% if request.GET.status == "RD" %}selected{% endif %}>To Read</option>
+            <option value="Reading" {% if request.GET.status == "Reading" %}selected{% endif %}>Reading</option>
+            <option value="CP" {% if request.GET.status == "CP" %}selected{% endif %}>Completed</option>
+        </select>
+        <button type="submit" class="bm-btn-sm">Search</button>
+    </form>
+
+    <a href="{% url 'create_book' %}" class="bm-btn-sm">+ Add Book</a>
+</header>
+
+<ul class="book-list">
+    {% for book in books %}
+    <li class="book-item">
+        <a href="{% url 'book_detail' book.id %}" class="book-link">
+
+            {% if book.cover %}
+                <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover-thumb">
+            {% else %}
+                <div class="book-cover-placeholder">📖</div>
+            {% endif %}
+
+            <div class="book-info">
+                <span class="book-title">{{ book.title }}</span>
+                <span class="book-author">{{ book.author }}</span>
+                <span class="status-badge {% if book.status == 'Reading' %}reading{% elif book.status == 'Finished' or book.status == 'Completed' %}finished{% else %}to-read{% endif %}">
+                    {{ book.status }}
+                </span>
+            </div>
+
+            <span class="book-arrow" aria-hidden="true"></span>
+        </a>
+    </li>
+    {% empty %}
+    <li class="empty-state">No books added yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

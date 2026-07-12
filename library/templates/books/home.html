@@ -1,0 +1,25 @@
+{% extends "books/base.html" %}
+
+{% block title %}My Book Manager{% endblock %}
+
+{% block body %}
+<div class="home-wrap">
+
+  <div class="spine-lines" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="shelf" aria-hidden="true"></div>
+
+  <p class="home-eyebrow">Personal Library</p>
+
+  <h1 class="home-title">📚 My Book Manager</h1>
+
+  <p class="home-sub">Track what you're reading, where you left off, and how you felt about it when you were done.</p>
+
+  <a href="{% url 'book_list' %}" class="bm-btn">
+    View My Library
+  </a>
+</div>
+{% endblock %}

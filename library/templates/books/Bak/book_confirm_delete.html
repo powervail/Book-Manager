@@ -1,0 +1,39 @@
+{% extends "books/base.html" %}
+
+{% block title %}Delete {{ book.title }}{% endblock %}
+
+{% block content %}
+
+<div class="book-card">
+
+    <div class="book-inner">
+
+        <h1 class="book-detail-title">
+            Delete Book
+        </h1>
+
+        <p class="home-sub">
+            Are you sure you want to permanently delete
+            <strong>"{{ book.title }}"</strong>?
+        </p>
+
+        <hr class="bm-rule">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button type="submit" class="bm-btn danger">
+                🗑 Delete Book
+            </button>
+
+            <a href="{% url 'book_detail' book.pk %}" class="bm-btn secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

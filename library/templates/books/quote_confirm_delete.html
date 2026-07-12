@@ -1,0 +1,37 @@
+{% extends "books/base.html" %}
+
+{% block title %}Delete Quote{% endblock %}
+
+{% block content %}
+
+<div class="book-card delete-card">
+    <div class="book-inner">
+
+        <h1 class="book-detail-title">Delete Quote</h1>
+
+        <div class="quote-preview">
+            <span class="quote-mark">"</span>
+            {{ quote.text }}
+            <span class="quote-mark">"</span>
+        </div>
+
+        <p class="delete-warning">
+            Are you sure you want to permanently delete this quote from
+            <strong>{{ quote.book.title }}</strong>?
+            This action cannot be undone.
+        </p>
+
+        <hr class="bm-rule">
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="delete-actions">
+                <button type="submit" class="bm-btn danger">🗑 Delete Quote</button>
+                <a href="{% url 'book_detail' quote.book.pk %}" class="bm-btn secondary">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

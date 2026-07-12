@@ -1,0 +1,37 @@
+{% extends 'books/base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h2> {{ total_books }}</h2>
+        <p>Total Books</p>
+    </div>
+    <div class="stat-card">
+        <h2> {{ reading }}</h2>
+        <p>Currently Reading</p>
+    </div>
+    <div class="stat-card">
+        <h2> {{ completed }}</h2>
+        <p>Completed</p>
+    </div>
+    <div class="stat-card">
+        <h2> {{ to_read }}</h2>
+        <p>To Read</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>{{ total_notes }}</h2>
+        <p>Notes</p>
+    </div>
+    <div class="stat-card">
+        <h2>{{ total_quotes }}</h2>
+        <p>Quotes</p>
+    </div>
+</div>
+
+<a href="{% url 'book_list' %}" class="bm-btn-sm">View All Books</a>
+{% endblock %}

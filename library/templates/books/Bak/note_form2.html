@@ -1,0 +1,33 @@
+{% extends "books/base.html" %}
+
+{% block title %}Add Note — {{ book.title }}{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()" class="bm-back">Back</a>
+
+<p class="bm-eyebrow">{{ book.title }}</p>
+<h1 class="form-page-title">Add Note</h1>
+
+<div class="form-card">
+    <form method="post" class="book-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label class="bm-label" for="{{ form.content.id_for_label }}">Your Note</label>
+            <textarea
+                name="{{ form.content.html_name }}"
+                id="{{ form.content.id_for_label }}"
+                class="bm-textarea"
+                rows="6"
+                placeholder="Write your thoughts, observations, or anything worth remembering…">{{ form.content.value|default:'' }}</textarea>
+            {{ form.content.errors }}
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" class="bm-btn">Save Note</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

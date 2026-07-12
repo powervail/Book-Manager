@@ -1,0 +1,128 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()" class="bm-back">Back</a>
+
+<h1 class="form-page-title">{{ page_title }}</h1>
+{% if form.instance.pk %}
+    <p class="form-page-subtitle">{{ form.instance.title }}</p>
+{% endif %}
+
+<div class="form-card">
+
+    <form method="post" enctype="multipart/form-data" class="book-form">
+        {% csrf_token %}
+
+        <!-- Cover preview (edit mode) -->
+        {% if form.instance.cover %}
+        <div class="cover-preview-wrap">
+            <img src="{{ form.instance.cover.url }}"
+                alt="{{ form.instance.title }}"
+                class="book-cover-preview"
+                id="cover-preview">
+        </div>
+        {% else %}
+        <div class="cover-preview-wrap" id="cover-preview-wrap" style="display:none;">
+            <img src="" alt="Cover preview" class="book-cover-preview" id="cover-preview">
+        </div>
+        {% endif %}
+
+        <!-- Cover upload -->
+        <div class="form-group">
+            <label class="bm-label">Book Cover</label>
+            <div class="file-upload-area" id="file-upload-area">
+                <span class="file-upload-icon">📷</span>
+                <span class="file-upload-text">Click to upload cover image</span>
+                <span class="file-upload-hint">JPG, PNG, WEBP</span>
+                {{ form.cover }}
+            </div>
+            {{ form.cover.errors }}
+        </div>
+
+        <div class="form-group">
+            <label class="bm-label" for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div class="form-group">
+            <label class="bm-label" for="{{ form.author.id_for_label }}">Author</label>
+            {{ form.author }}
+            {{ form.author.errors }}
+        </div>
+
+        <div class="form-group">
+            <label class="bm-label" for="{{ form.status.id_for_label }}">Status</label>
+            {{ form.status }}
+            {{ form.status.errors }}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="bm-label" for="{{ form.total_pages.id_for_label }}">Total Pages</label>
+                {{ form.total_pages }}
+                {{ form.total_pages.errors }}
+            </div>
+
+            <div class="form-group">
+                <label class="bm-label" for="{{ form.current_page.id_for_label }}">Current Page</label>
+                {{ form.current_page }}
+                {{ form.current_page.errors }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="bm-label" for="">Upload PDF</label>
+            {{ form.book_file }}
+        </div>
+
+
+        <div class="form-submit">
+            <button type="submit" class="bm-btn">{{ button_text }}</button>
+        </div>
+
+    </form>
+</div>
+
+<script>
+  // Live cover preview on file select
+  const fileInput = document.querySelector('.bm-input-file');
+  const previewImg = document.getElementById('cover-preview');
+  const previewWrap = document.getElementById('cover-preview-wrap');
+  const uploadArea = document.getElementById('file-upload-area');
+
+  if (fileInput) {
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          if (previewImg) previewImg.src = e.target.result;
+          if (previewWrap) previewWrap.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        // Update label text
+        const label = uploadArea.querySelector('.file-upload-text');
+        if (label) label.textContent = file.name;
+      }
+    });
+
+    // Drag-and-drop
+    uploadArea.addEventListener('dragover', e => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      fileInput.files = e.dataTransfer.files;
+      fileInput.dispatchEvent(new Event('change'));
+    });
+  }
+</script>
+{% endblock %}

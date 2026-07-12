@@ -1,0 +1,32 @@
+{% extends "books/base.html" %}
+
+{% block title %}Delete Note{% endblock %}
+
+{% block content %}
+
+<div class="book-card">
+
+    <h1>Delete Note</h1>
+
+    <p>Are you sure you want to delete this note?</p>
+
+    <blockquote>
+        {{ note.content }}
+    </blockquote>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit" class="bm-btn danger">
+            🗑 Delete
+        </button>
+
+        <a href="{% url 'book_detail' note.book.pk %}" class="bm-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

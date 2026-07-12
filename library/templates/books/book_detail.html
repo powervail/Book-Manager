@@ -1,0 +1,158 @@
+{% extends "books/base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<a href="{% url 'book_list' %}" class="bm-back">Back to Library</a>
+
+<div class="book-card book-detail">
+
+    <div class="progress-strip">
+        <div class="progress-fill" style="width: {% if book.total_pages %}{% widthratio book.current_page book.total_pages 100 %}%{% else %}0%{% endif %};"></div>
+    </div>
+
+    <div class="book-inner">
+
+        {% if book.cover %}
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover">
+        {% else %}
+            <div class="book-cover-placeholder">No Cover</div>
+        {% endif %}
+
+        <span class="status-badge {% if book.status == 'RD' %}reading{% elif book.status == 'CP' %}finished{% else %}to-read{% endif %}">
+            {{ book.get_status_display }}
+        </span>
+
+        <h1 class="book-detail-title">{{ book.title }}</h1>
+        <p class="book-author">{{ book.author }}</p>
+
+        <hr class="bm-rule" />
+
+        <div class="meta-grid">
+            <div class="meta-item">
+                <span class="meta-label">Current Page</span>
+                <span class="meta-value">{{ book.current_page }}</span>
+                <p class="meta-pages">of {{ book.total_pages }} pages</p>
+            </div>
+
+            <div class="meta-item">
+                <span class="meta-label">Rating</span>
+                {% if book.rating %}
+                    <div class="rating-stars">
+                        {% with ''|center:book.rating as stars %}
+                            {% for _ in stars %}★{% endfor %}
+                        {% endwith %}
+                    </div>
+                {% else %}
+                    <span class="rating-empty">Not yet rated</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- =================Action Button Area ========================-->
+        <div class="book-actions">
+            {% if book.book_file %}
+                <a href="{{ book.book_file.url }}" target="_blank" class="bm-btn">
+                    Open Book
+                </a>
+            {% else %}
+                <p>No Book file uploaded.</p>
+            {% endif %}
+
+            <a href="{% url 'update_book' book.pk %}" class="bm-btn">Edit Book</a>
+            <a href="{% url 'toggle_favorite' book.pk %}" class="bm-btn-sm">
+                {% if book.is_favorite%}
+                ⭐Remove Favorite
+                {% else %}
+                ✰ Add Favorite
+                {% endif %}
+            </a>
+            <!-- <a href="{% url 'create_note' book.pk %}" class="bm-btn-sm">+ Add Note</a> -->
+            <a href="{% url 'delete_book' book.pk %}" class="bm-btn danger">🗑 Delete</a>
+        </div>
+        
+        <hr class="bm-rule" />
+
+        {% if book.book_file %}
+
+            <p>
+                🗄Uploaded Book:
+                <a href="{{ book.book_file }}" target="_blank">Open PDF</a>
+            </p>
+        {% else %}
+            <p>No PDF uploaded</p>
+        {% endif %}
+
+        <hr class="bm-rule" />   
+        <!-- =====================NOTES================= -->
+
+        <h2>📝 Notes</h2>
+
+        <a href="{% url 'create_note' book.pk %}" class="bm-btn-sm">
+            + Add Note
+        </a>
+
+        {% for note in book.notes.all %}
+
+        <div class="note-card">
+
+            <h3>{{ note.title }}</h3>
+
+            <p>{{ note.content }}</p>
+
+            <small>{{ note.created_at|date:"M d, Y" }}</small>
+
+            <div class="note-actions">
+                <a href="{% url 'update_note' note.pk %}" class="bm-btn-sm">
+                    ✏ Edit
+                </a>
+
+                <a href="{% url 'delete_note' note.pk %}" class="bm-btn-sm danger">
+                    🗑 Delete
+                </a>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <p>No notes yet.</p>
+
+        {% endfor %}
+
+        <hr class="bm-rule" />
+
+        <h2>✨Quotes</h2>
+        
+        <a href="{% url 'create_quote' book.pk %}" class="bm-btn-sm">
+            + Add Quote
+        </a>
+
+        {% for quote in book.quotes.all %}
+
+        <div class="quote-card">
+            <h3>{{ quote.title }}</h3>
+
+            <p>{{ quote.text }}</p>
+
+            <div class="quote-actions">
+                <a href="{% url 'update_quote' quote.pk %}" class="bm-btn-sm">
+                    ✏ Edit
+                </a>
+
+                <a href="{% url 'delete_quote' quote.pk %}" class="bm-btn-sm danger">
+                    🗑 Delete
+                </a>
+            </div>
+            
+        </div>
+        
+        {% empty %}
+
+        <p>No quotes yet.</p>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

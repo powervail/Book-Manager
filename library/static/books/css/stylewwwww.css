@@ -1,0 +1,642 @@
+/* ============================================
+   Book Manager — style.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap');
+
+/* ── Tokens ─────────────────────────────── */
+:root {
+  --bg:         #1A1F2E;
+  --bg-card:    #232840;
+  --bg-hover:   #2B3257;
+  --text:       #F0E9D6;
+  --text-muted: #9B9380;
+  --accent:     #7A9E87;
+  --cta:        #C17B6F;
+  --cta-hover:  #D4907F;
+  --danger:     #dc2626;
+  --danger-hover:#b91c1c;
+  --border:     rgba(240, 233, 214, 0.08);
+  --radius:     6px;
+  --max-w:      720px;
+}
+
+/* ── Reset ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+  padding: 2.5rem 1.25rem 5rem;
+}
+
+a { color: var(--accent); text-decoration: none; transition: color 0.18s ease; }
+a:hover { color: var(--text); }
+
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ── Layout container ───────────────────── */
+.bm-container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* ── Back link ──────────────────────────── */
+.bm-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  transition: color 0.18s ease;
+}
+.bm-back::before { content: '←'; }
+.bm-back:hover { color: var(--text); }
+
+/* ── Buttons ────────────────────────────── */
+.bm-btn {
+  display: inline-block;
+  background: var(--cta);
+  color: var(--bg) !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75em 1.8em;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease;
+  white-space: nowrap;
+}
+.bm-btn:hover { background: var(--cta-hover); transform: translateY(-1px); }
+
+.bm-btn-sm {
+  display: inline-block;
+  background: transparent;
+  color: var(--cta) !important;
+  border: 1px solid var(--cta);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5em 1.2em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+.bm-btn-sm:hover { background: var(--cta); color: var(--bg) !important; transform: translateY(-1px); }
+
+/* Modifier classes */
+.bm-btn.danger {
+  background: var(--danger);
+  color: #fff !important;
+}
+.bm-btn.danger:hover { background: var(--danger-hover); }
+
+.bm-btn.secondary {
+  background: transparent;
+  color: var(--text) !important;
+  border: 1px solid var(--border);
+}
+.bm-btn.secondary:hover { background: var(--bg-hover); }
+
+/* ── Misc shared ────────────────────────── */
+.bm-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.bm-rule { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+
+
+/* ============================================
+   home.html
+   ============================================ */
+
+.home-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.spine-lines {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 2.5rem;
+}
+.spine-lines span { display: block; width: 3px; border-radius: 2px; opacity: 0.9; }
+.spine-lines span:nth-child(1)  { height: 52px; background: #3A4366; }
+.spine-lines span:nth-child(2)  { height: 68px; background: #4A5878; }
+.spine-lines span:nth-child(3)  { height: 44px; background: #7A9E87; }
+.spine-lines span:nth-child(4)  { height: 72px; background: #C17B6F; }
+.spine-lines span:nth-child(5)  { height: 56px; background: #9B9380; }
+.spine-lines span:nth-child(6)  { height: 60px; background: #3A4366; }
+.spine-lines span:nth-child(7)  { height: 40px; background: #7A9E87; }
+.spine-lines span:nth-child(8)  { height: 76px; background: #4A5878; }
+.spine-lines span:nth-child(9)  { height: 50px; background: #C17B6F; }
+.spine-lines span:nth-child(10) { height: 64px; background: #9B9380; }
+.spine-lines span:nth-child(11) { height: 48px; background: #3A4366; }
+.spine-lines span:nth-child(12) { height: 70px; background: #7A9E87; }
+
+.shelf {
+  height: 3px;
+  background: rgba(240, 233, 214, 0.12);
+  border-radius: 2px;
+  margin-bottom: 3rem;
+}
+
+.home-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.home-title { font-size: clamp(2.4rem, 6vw, 3.6rem); margin-bottom: 1rem; }
+
+.home-sub {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 420px;
+  margin: 0 auto 2.5rem;
+}
+
+
+/* ============================================
+   book_list.html
+   ============================================ */
+
+.list-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.list-header-text { display: flex; flex-direction: column; }
+.list-header h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
+
+/* Book list items — cover thumbnail layout */
+.book-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.book-item { list-style: none; }
+
+/* Reset old ::before/::after — new layout uses cover thumb */
+.book-item a,
+.book-item .book-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+.book-item a::before,
+.book-item a::after { display: none; content: none; } /* remove old pseudo-elements */
+
+.book-item a:hover,
+.book-item .book-link:hover {
+  background: var(--bg-hover);
+  border-color: rgba(240, 233, 214, 0.18);
+  transform: translateX(3px);
+}
+
+/* Cover thumbnail */
+.book-cover-thumb {
+  width: 44px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Placeholder when no cover */
+.book-cover-placeholder {
+  width: 44px;
+  height: 62px;
+  background: var(--bg-hover);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+/* Text block inside list item */
+.book-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.book-info .book-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-info .book-author {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+/* Arrow on list rows */
+.book-item a .book-arrow {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: color 0.18s, transform 0.18s;
+}
+.book-item a:hover .book-arrow { color: var(--text); transform: translateX(3px); }
+
+/* Status badge — used in list + detail */
+.status-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+  border-radius: 99px;
+  border: 1px solid currentColor;
+  width: fit-content;
+}
+.status-badge.reading,
+.status-badge[class*="CP"],   /* fallback for unstyled Django output */
+.status-badge                 { color: var(--text-muted); }
+/* Override by value — applied via template class logic */
+.status-badge.reading   { color: var(--accent); }
+.status-badge.finished  { color: var(--cta); }
+.status-badge.completed { color: var(--cta); }
+.status-badge.to-read   { color: var(--text-muted); }
+
+.empty-state {
+  list-style: none;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+}
+
+
+/* ============================================
+   book_detail.html
+   ============================================ */
+
+.book-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.progress-strip { height: 5px; background: rgba(240, 233, 214, 0.06); }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--cta));
+  border-radius: 0 3px 3px 0;
+  transition: width 0.6s ease;
+}
+
+.book-inner { padding: 1.75rem 1.75rem 2rem; }
+
+/* Cover in detail view */
+.book-cover {
+  width: 120px;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+
+/* Placeholder in detail view */
+.book-detail .book-cover-placeholder {
+  width: 120px;
+  height: 170px;
+  background: var(--bg-hover);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.book-detail-title { font-size: clamp(1.6rem, 4.5vw, 2.2rem); margin-bottom: 0.35rem; }
+.book-author { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 2rem;
+  margin-bottom: 0; /* buttons sit below in their own row */
+}
+
+.meta-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.meta-value {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.meta-pages { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+.rating-stars { color: var(--cta); font-size: 1rem; letter-spacing: 0.05em; }
+.rating-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.88rem;
+}
+
+/* Action buttons row — sits below the meta-grid */
+.book-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.book-actions .bm-btn { flex: 1; text-align: center; }
+
+
+/* ============================================
+   book_form.html
+   ============================================ */
+
+.form-page-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin-bottom: 0.2rem;
+}
+
+.form-page-subtitle {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 0;
+}
+
+/* Form card */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.75rem 2rem 2rem;
+  margin-top: 1.5rem;
+}
+
+.book-form { display: flex; flex-direction: column; gap: 1.4rem; }
+
+/* Side-by-side pair (total pages / current page) */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* Custom label class (we pass our own <label> in the template) */
+.bm-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── Styled inputs via widget class="bm-input" ── */
+.bm-input {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(240, 233, 214, 0.18);
+  border-radius: var(--radius);
+  padding: 0.72em 1em;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.5;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-text-fill-color: var(--text) !important;
+  caret-color: var(--accent);
+}
+
+.bm-input::placeholder { color: var(--text-muted); opacity: 1; }
+
+.bm-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(122, 158, 135, 0.14);
+}
+
+/* Autofill */
+.bm-input:-webkit-autofill,
+.bm-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+}
+
+/* Number spinner subtle */
+.bm-input[type="number"]::-webkit-inner-spin-button,
+.bm-input[type="number"]::-webkit-outer-spin-button { opacity: 0.35; }
+
+/* ── Styled select via widget class="bm-select" ── */
+.bm-select {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(240, 233, 214, 0.18);
+  border-radius: var(--radius);
+  padding: 0.72em 2.5em 0.72em 1em;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B9380' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.9em center !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.bm-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(122, 158, 135, 0.14);
+}
+.bm-select option { background: var(--bg-card); color: var(--text); }
+
+/* ── Cover upload area ── */
+.cover-preview-wrap {
+  margin-bottom: 0.25rem;
+}
+
+.book-cover-preview {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+}
+
+.file-upload-area {
+  position: relative;
+  border: 1.5px dashed rgba(240, 233, 214, 0.18);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  text-align: center;
+}
+.file-upload-area:hover,
+.file-upload-area.dragover {
+  border-color: var(--accent);
+  background: rgba(122, 158, 135, 0.05);
+}
+
+.file-upload-icon { font-size: 1.6rem; line-height: 1; }
+.file-upload-text { font-size: 0.88rem; color: var(--text); font-weight: 400; }
+.file-upload-hint { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+/* Hide the actual file input, let the area act as trigger */
+.bm-input-file {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Error messages */
+.form-group ul.errorlist {
+  list-style: none;
+  color: var(--danger);
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+
+.form-submit { margin-top: 0.25rem; }
+
+
+/* ============================================
+   book_confirm_delete.html
+   ============================================ */
+
+.delete-card .book-inner { padding: 2rem; }
+
+.delete-warning {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.delete-warning strong { color: var(--text); font-weight: 400; font-style: italic; }
+
+.delete-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.delete-actions .bm-btn { flex: 1; text-align: center; }
+
+
+/* ============================================
+   Responsive breakpoints
+   ============================================ */
+
+@media (max-width: 600px) {
+  body { padding: 1.5rem 1rem 4rem; }
+
+  .list-header { align-items: flex-start; flex-direction: column; gap: 0.75rem; }
+  .bm-btn-sm { width: 100%; text-align: center; }
+
+  .meta-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+  .book-actions { flex-direction: column; }
+  .book-actions .bm-btn { flex: none; width: 100%; }
+
+  .delete-actions { flex-direction: column; }
+  .delete-actions .bm-btn { flex: none; width: 100%; }
+
+  .book-cover { width: 90px; }
+
+  .spine-lines { gap: 4px; }
+  .spine-lines span { width: 2.5px; }
+}

@@ -1,0 +1,55 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1 class="form-page-title">{{ page_title }}</h1>
+{% if form.instance.pk %}
+    <p class="form-page-subtitle">{{ form.instance.title }}</p>
+{% endif %}
+
+<div class="form-card">
+
+    {% if form.instance.cover %}
+        <img src="{{ form.instance.cover.url }}"
+             alt="{{ form.instance.title }}"
+             class="book-cover-preview">
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="book-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.author.label_tag }}
+            {{ form.author }}
+            {{ form.author.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.status.label_tag }}
+            {{ form.status }}
+            {{ form.status.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.total_pages.label_tag }}
+            {{ form.total_pages }}
+            {{ form.total_pages.errors }}
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" class="bm-btn">{{ button_text }}</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "books/base.html" %}
+{% load static %}
+
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+
+<header class="list-header">
+
+    <div class="list-header-top">
+        <div class="list-header-text">
+            <span class="bm-eyebrow">Your Collection</span>
+            <h1>My Books</h1>
+        </div>
+        <a href="{% url 'create_book' %}" class="bm-btn-sm">+ Add Book</a>
+    </div>
+
+    <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            class="search-input"
+            placeholder="Search by title or author…"
+            value="{{ request.GET.q }}">
+
+        <select name="status" class="search-select">
+            <option value="">All Status</option>
+            <option value="NS" {% if request.GET.status == "NS" %}selected{% endif %}>Not Started</option>
+            <option value="RD" {% if request.GET.status == "RD" %}selected{% endif %}>Reading</option>
+            <option value="CP" {% if request.GET.status == "CP" %}selected{% endif %}>Completed</option>
+        </select>
+
+        <button type="submit" class="bm-btn-sm">Search</button>
+    </form>
+
+</header>
+
+<ul class="book-list">
+    {% for book in books %}
+    <li class="book-item">
+        <a href="{% url 'book_detail' book.id %}" class="book-link">
+
+            {% if book.cover %}
+                <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="book-cover-thumb">
+            {% else %}
+                <div class="book-cover-placeholder">📖</div>
+            {% endif %}
+
+            <div class="book-info">
+                <!-- <span class="book-title">{{ book.title }}</span> -->
+                <span class="book-title">
+                    {% if book.is_favorite %}
+                        ⭐ {{ book.title }}
+                    {% else %}
+                        {{ book.title }}
+                    {% endif %}
+                </span>
+                <span class="book-author">{{ book.author }}</span>
+                <span class="status-badge {% if book.status == 'RD' %}reading{% elif book.status == 'CP' %}finished{% else %}to-read{% endif %}">
+                    {{ book.get_status_display }}
+                </span>
+                
+                <div class="reading-progress">
+                    <div class="reading-progress-fill" style="width: {{ book.progress }}%;"></div>
+                </div>
+                <!-- <div class="reading-progress-fill" style="width: {{ book.progress }}%;"></div> -->
+                <p class="progress-text">
+                    {{ book.progress }}% Complete
+                </p>
+
+                <small>{{ book.current_page }} / {{ book.total_pages }} pages</small>
+            </div>
+
+            <span class="book-arrow" aria-hidden="true">→</span>
+        </a>
+    </li>
+    {% empty %}
+    <li class="empty-state">
+        {% if request.GET.q or request.GET.status %}
+            No books match your search.
+        {% else %}
+            No books added yet.
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    {% if books.has_previous %}
+    <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&page={{ books.previous_page_number }}">&LeftArrow;</a>
+    {% endif %}
+
+    <span>
+        Page {{ books.number }} of {{ books.paginator.num_pages }}
+    </span>
+
+    {% if books.has_next %}
+    <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&page={{ books.next_page_number }}">Next &RightArrow;</a>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "books/base.html" %}
+
+{% block title %}
+{% if form.instance.pk %}Edit Quote{% else %}Add Quote{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()" class="bm-back">Back</a>
+
+{% if book %}
+    <p class="bm-eyebrow">{{ book.title }}</p>
+{% elif quote %}
+    <p class="bm-eyebrow">{{ quote.book.title }}</p>
+{% endif %}
+
+<h1 class="form-page-title">
+    {% if form.instance.pk %}Edit Quote{% else %}Add Quote{% endif %}
+</h1>
+
+<div class="form-card">
+    <form method="post" class="book-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label class="bm-label" for="{{ form.text.id_for_label }}">Quote</label>
+            <textarea
+                name="{{ form.text.html_name }}"
+                id="{{ form.text.id_for_label }}"
+                class="bm-textarea"
+                rows="5"
+                placeholder="Type the quote exactly as it appears in the book…">{{ form.text.value|default:'' }}</textarea>
+            {{ form.text.errors }}
+        </div>
+
+        <div class="form-submit quote-actions">
+            <button type="submit" class="bm-btn">
+                {% if form.instance.pk %}Update Quote{% else %}Save Quote{% endif %}
+            </button>
+            <a href="javascript:history.back()" class="bm-btn secondary">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
