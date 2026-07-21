@@ -30,7 +30,7 @@ A modern Django web application for managing your personal book collection.
 
 ## 📷 Screenshots
 
-*(Add screenshots here later)*
+![Home](screenshots/homepage.png)
 
 ### Dashboard
 
